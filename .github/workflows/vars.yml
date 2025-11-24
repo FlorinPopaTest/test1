@@ -29,5 +29,5 @@ jobs:
           echo "secondword=world" >> $Env:GITHUB_OUTPUT
       - name: Display
         shell: pwsh
-        run: echo ${{ steps.step2.outputs.secondword }}
+        run: echo "test ${{ steps.step2.outputs.secondword }}"
       
