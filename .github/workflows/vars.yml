@@ -15,6 +15,7 @@ jobs:
   example_job:
     name: Generate output
     runs-on: windows-latest
+    shell: pwsh
     # Map the job outputs to step outputs
     outputs:
       output1: ${{ steps.step1.outputs.firstword }}
