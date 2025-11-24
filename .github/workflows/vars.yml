@@ -16,7 +16,7 @@ jobs:
       - id: setvars
         run: |
           echo "COMPANY_NAME=My Company"
-          echo "COMPANY_NAME=My Company"
+          echo "CURRENT_YEAR=$(date +'%Y')"
           echo "COMPANY_NAME=My Company" >> $GITHUB_OUTPUT
           echo "CURRENT_YEAR=$(date +'%Y')" >> $GITHUB_OUTPUT
 
