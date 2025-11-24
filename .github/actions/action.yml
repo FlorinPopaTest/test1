@@ -1,0 +1,35 @@
+name: Set Variables
+
+on:
+  workflow_dispatch:   # allows manual triggering
+  workflow_call:       # allows other workflows to call this workflow
+    outputs:
+      COMPANY_NAME:
+        description: "The company name"
+        value: ${{ jobs.set-vars.outputs.COMPANY_NAME }}
+      CURRENT_YEAR:
+        description: "The current year"
+        value: ${{ jobs.set-vars.outputs.CURRENT_YEAR }}
+      COPYRIGHT:
+        description: "The copyright string"
+        value: ${{ jobs.set-vars.outputs.COPYRIGHT }}
+
+jobs:
+  set-vars:
+    runs-on: windows-latest
+    outputs:
+      COMPANY_NAME: ${{ steps.calc.outputs.COMPANY_NAME }}
+      CURRENT_YEAR: ${{ steps.calc.outputs.CURRENT_YEAR }}
+      COPYRIGHT: ${{ steps.calc.outputs.COPYRIGHT }}
+    steps:
+      - name: Calculate variables
+        id: calc
+        shell: pwsh
+        run: |
+          $CompanyName = "My company"
+          $CopyrightStart = "1990"
+          $CurrentYear = (Get-Date).Year
+          $Copyright = "@ $CopyrightStart-$CurrentYear $CompanyName"
+          echo "COMPANY_NAME=$CompanyName" >> $Env:GITHUB_OUTPUT
+          echo "CURRENT_YEAR=$CurrentYear" >> $Env:GITHUB_OUTPUT
+          echo "COPYRIGHT=$Copyright" >> $Env:GITHUB_OUTPUT
