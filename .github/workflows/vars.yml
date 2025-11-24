@@ -23,10 +23,10 @@ jobs:
     steps:
       - id: step1
         shell: pwsh
-        run: echo "firstword=hello" >> $GITHUB_OUTPUT
-      - id: step2
-        shell: pwsh
-        run: echo "secondword=world" >> $GITHUB_OUTPUT
+        run: |
+          Write-Host "Setting outputs..."
+          echo "firstword=hello" >> $GITHUB_OUTPUT
+          echo "secondword=world" >> $GITHUB_OUTPUT
       - name: Display
         shell: pwsh
         run: echo ${{ steps.step2.outputs.secondword }}
