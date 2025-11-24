@@ -4,3 +4,12 @@ on:
       COMPANY_NAME:
         description: "Company name"
         value: ${{ jobs.calc.outputs.COMPANY_NAME }}
+jobs:
+  calc:
+    runs-on: ubuntu-latest
+    outputs:
+      CURRENT_YEAR: ${{ steps.setvars.outputs.CURRENT_YEAR }}
+    steps:
+      - id: setvars
+        run: echo "CURRENT_YEAR=$(date +'%Y')" >> $GITHUB_OUTPUT
+
