@@ -1,29 +1,17 @@
-name: TESTING
+# test1/.github/workflows/vars.yml
+name: Variables Template
 
 on:
-  workflow_call: {} # Manual trigger
+  workflow_call: {}
 
 jobs:
-  # Step 1: Call the reusable workflow
-  vars:
-    uses: MyOrg/test1/.github/workflows/vars.yml@main
-
-  # Step 2: Build job that uses outputs from vars
-  build:
-    needs: vars
+  calc:
     runs-on: windows-latest
-    env:
-      COMPANY_NAME: ${{ needs.vars.outputs.COMPANY_NAME }}
-      CURRENT_YEAR: ${{ needs.vars.outputs.CURRENT_YEAR }}
+    outputs:
+      COMPANY_NAME: ${{ steps.setvars.outputs.COMPANY_NAME }}
+      CURRENT_YEAR: ${{ steps.setvars.outputs.CURRENT_YEAR }}
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Print variables
+      - id: setvars
         run: |
-          echo "Company Name: $COMPANY_NAME"
-          echo "Current Year: $CURRENT_YEAR"
-
-      - name: Build artifact
-        run: |
-          echo "Building artifact for $COMPANY_NAME..."
-          # your build commands here
+          echo "COMPANY_NAME=My Company" >> $GITHUB_OUTPUT
+          echo "CURRENT_YEAR=$(date +'%Y')" >> $GITHUB_OUTPUT
