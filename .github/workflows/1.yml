@@ -1,0 +1,6 @@
+on:
+  workflow_call:
+    outputs:
+      COMPANY_NAME:
+        description: "Company name"
+        value: ${{ jobs.calc.outputs.COMPANY_NAME }}
