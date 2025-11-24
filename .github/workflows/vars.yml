@@ -24,3 +24,6 @@ jobs:
         run: echo "firstword=hello" >> $GITHUB_OUTPUT
       - id: step2
         run: echo "secondword=world" >> $GITHUB_OUTPUT
+      - name: Display
+        run: echo ${{ steps.step2.outputs.secondword }}
+      
