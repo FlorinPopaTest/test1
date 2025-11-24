@@ -14,9 +14,9 @@ jobs:
   example_job:
     name: Generate output
     runs-on: windows-latest
-    outputs:
-      output1: ${{ steps.step1.outputs.firstword }}
-      output2: ${{ steps.step1.outputs.secondword }}   # 🔹 same step1, not step2
+    # outputs:
+    #   output1: ${{ steps.step1.outputs.firstword }}
+    #   output2: ${{ steps.step1.outputs.secondword }}   # 🔹 same step1, not step2
 
     steps:
       - id: step1
