@@ -25,8 +25,8 @@ jobs:
         shell: pwsh
         run: |
           Write-Host "Setting outputs..."
-          echo "firstword=hello" >> $GITHUB_OUTPUT
-          echo "secondword=world" >> $GITHUB_OUTPUT
+          echo "firstword=hello" >> $Env:GITHUB_OUTPUT
+          echo "secondword=world" >> $Env:GITHUB_OUTPUT
       - name: Display
         shell: pwsh
         run: echo ${{ steps.step2.outputs.secondword }}
