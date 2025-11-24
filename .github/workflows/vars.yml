@@ -1,5 +1,3 @@
-
-
 # test1/.github/workflows/vars.yml
 name: Variables Template
 
@@ -7,22 +5,22 @@ on:
   workflow_call: {}
 
 jobs:
-  calc:
+  vars:   # 🔥 MUST MATCH needs: vars in the main workflow
     runs-on: windows-latest
+
     outputs:
       COMPANY_NAME: ${{ steps.setvars.outputs.COMPANY_NAME }}
       CURRENT_YEAR: ${{ steps.setvars.outputs.CURRENT_YEAR }}
-    steps:
-      - id: setvars
-        run: |
-          echo "COMPANY_NAME=My Company"
-          echo "CURRENT_YEAR=$(date +'%Y')"
-          echo "COMPANY_NAME=My Company" >> $Env:GITHUB_OUTPUT
-          echo "CURRENT_YEAR=2025" >> $Env:GITHUB_OUTPUT
 
-      - name: Display outputs
+    steps:
+      - name: Calculate variables
+        id: setvars
+        shell: pwsh
+        run: |
+          "COMPANY_NAME=My Company" >> $Env:GITHUB_OUTPUT
+          "CURRENT_YEAR=$(Get-Date -Format yyyy)" >> $Env:GITHUB_OUTPUT
+
+      - name: Debug outputs
         run: |
           echo "Company: ${{ steps.setvars.outputs.COMPANY_NAME }}"
           echo "Year: ${{ steps.setvars.outputs.CURRENT_YEAR }}"
-
-
