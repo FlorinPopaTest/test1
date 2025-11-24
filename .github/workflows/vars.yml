@@ -10,8 +10,8 @@ jobs:
   calc:
     runs-on: windows-latest
     outputs:
-      COMPANY_NAME: ${{ needs.setvars.outputs.COMPANY_NAME }}
-      CURRENT_YEAR: ${{ needs.setvars.outputs.CURRENT_YEAR }}
+      COMPANY_NAME: ${{ steps.setvars.outputs.COMPANY_NAME }}
+      CURRENT_YEAR: ${{ steps.setvars.outputs.CURRENT_YEAR }}
     steps:
       - id: setvars
         run: |
