@@ -1,7 +1,7 @@
 name: TESTING
 
 on:
-  workflow_call:  # Manual trigger
+  workflow_call: {} # Manual trigger
 
 jobs:
   # Step 1: Call the reusable workflow
