@@ -2,7 +2,6 @@ name: Reusable workflow
 
 on:
   workflow_call:
-    # Map the workflow outputs to job outputs
     outputs:
       firstword:
         description: "The first output string"
@@ -15,19 +14,20 @@ jobs:
   example_job:
     name: Generate output
     runs-on: windows-latest
-    
-    # Map the job outputs to step outputs
     outputs:
       output1: ${{ steps.step1.outputs.firstword }}
-      output2: ${{ steps.step2.outputs.secondword }}
+      output2: ${{ steps.step1.outputs.secondword }}   # 🔹 same step1, not step2
+
     steps:
       - id: step1
         shell: pwsh
         run: |
-          echo "Setting outputs..."
-          echo "firstword=hello" >> $Env:GITHUB_OUTPUT
-          echo "secondword=world" >> $Env:GITHUB_OUTPUT
+          Write-Host "Setting outputs..."
+          "firstword=hello" >> $Env:GITHUB_OUTPUT
+          "secondword=world" >> $Env:GITHUB_OUTPUT
+
       - name: Display
         shell: pwsh
-        run: echo "test ${{ steps.step2.outputs.secondword }}"
-      
+        run: |
+          Write-Host "First: ${{ steps.step1.outputs.firstword }}"
+          Write-Host "Second: ${{ steps.step1.outputs.secondword }}"
