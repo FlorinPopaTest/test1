@@ -1,32 +1,26 @@
-# test1/.github/workflows/vars.yml
-name: Variables Template
+name: Reusable workflow
 
 on:
-  workflow_call: {}
+  workflow_call:
+    # Map the workflow outputs to job outputs
+    outputs:
+      firstword:
+        description: "The first output string"
+        value: ${{ jobs.example_job.outputs.output1 }}
+      secondword:
+        description: "The second output string"
+        value: ${{ jobs.example_job.outputs.output2 }}
 
 jobs:
-  vars:   # 🔥 MUST MATCH needs: vars in the main workflow
-    runs-on: windows-latest
-
+  example_job:
+    name: Generate output
+    runs-on: ubuntu-latest
+    # Map the job outputs to step outputs
     outputs:
-      COMPANY_NAME: ${{ steps.setvars.outputs.COMPANY_NAME }}
-      CURRENT_YEAR: ${{ steps.setvars.outputs.CURRENT_YEAR }}
-
+      output1: ${{ steps.step1.outputs.firstword }}
+      output2: ${{ steps.step2.outputs.secondword }}
     steps:
-      - name: Calculate variables
-        id: setvars
-        shell: pwsh
-        run: |
-          "COMPANY_NAME=My Company" >> $Env:GITHUB_OUTPUT
-          "CURRENT_YEAR=$(Get-Date -Format yyyy)" >> $Env:GITHUB_OUTPUT
-      - name: Dump GitHub Output file
-        shell: pwsh
-        run: |
-          echo "=== GITHUB_OUTPUT ==="
-          type $Env:GITHUB_OUTPUT
-
-      - name: Debug outputs
-        run: |
-          echo "Company: ${{ steps.setvars.outputs.COMPANY_NAME }}"
-          echo "Year: ${{ steps.setvars.outputs.CURRENT_YEAR }}"
-
+      - id: step1
+        run: echo "firstword=hello" >> $GITHUB_OUTPUT
+      - id: step2
+        run: echo "secondword=world" >> $GITHUB_OUTPUT
