@@ -1,5 +1,6 @@
+name: Variables Template
 on:
-  workflow_call:
+  workflow_call:{}
     outputs:
       COMPANY_NAME:
         description: "Company name"
