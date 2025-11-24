@@ -24,7 +24,7 @@ jobs:
       - id: step1
         shell: pwsh
         run: |
-          Write-Host "Setting outputs..."
+          echo "Setting outputs..."
           echo "firstword=hello" >> $Env:GITHUB_OUTPUT
           echo "secondword=world" >> $Env:GITHUB_OUTPUT
       - name: Display
