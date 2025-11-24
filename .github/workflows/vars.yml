@@ -24,3 +24,4 @@ jobs:
         run: |
           echo "Company: ${{ steps.setvars.outputs.COMPANY_NAME }}"
           echo "Year: ${{ steps.setvars.outputs.CURRENT_YEAR }}"
+
