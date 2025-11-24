@@ -1,4 +1,4 @@
-
+ho 
 
 # test1/.github/workflows/vars.yml
 name: Variables Template
@@ -17,8 +17,8 @@ jobs:
         run: |
           echo "COMPANY_NAME=My Company"
           echo "CURRENT_YEAR=$(date +'%Y')"
-          "COMPANY_NAME=My Company" >> $Env:GITHUB_OUTPUT
-          "CURRENT_YEAR=2025" >> $Env:GITHUB_OUTPUT
+          echo "COMPANY_NAME=My Company" >> $Env:GITHUB_OUTPUT
+          echo "CURRENT_YEAR=2025" >> $Env:GITHUB_OUTPUT
 
       - name: Display outputs
         run: |
