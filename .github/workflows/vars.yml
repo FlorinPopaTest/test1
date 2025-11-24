@@ -19,6 +19,11 @@ jobs:
         run: |
           "COMPANY_NAME=My Company" >> $Env:GITHUB_OUTPUT
           "CURRENT_YEAR=$(Get-Date -Format yyyy)" >> $Env:GITHUB_OUTPUT
+      - name: Dump GitHub Output file
+        shell: pwsh
+        run: |
+          echo "=== GITHUB_OUTPUT ==="
+          type $Env:GITHUB_OUTPUT
 
       - name: Debug outputs
         run: |
