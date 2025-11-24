@@ -1,0 +1,29 @@
+name: TESTING
+
+on:
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  # Step 1: Call the reusable workflow
+  vars:
+    uses: MyOrg/test1/.github/workflows/vars.yml@main
+
+  # Step 2: Build job that uses outputs from vars
+  build:
+    needs: vars
+    runs-on: windows-latest
+    env:
+      COMPANY_NAME: ${{ needs.vars.outputs.COMPANY_NAME }}
+      CURRENT_YEAR: ${{ needs.vars.outputs.CURRENT_YEAR }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Print variables
+        run: |
+          echo "Company Name: $COMPANY_NAME"
+          echo "Current Year: $CURRENT_YEAR"
+
+      - name: Build artifact
+        run: |
+          echo "Building artifact for $COMPANY_NAME..."
+          # your build commands here
